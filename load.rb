@@ -10,7 +10,7 @@ require './call_history.rb'
 #first_file = files[0]
 
 def get_xls_files(folder_path)
-  Dir.glob "#{folder_path}/*.xls"
+  Dir.glob "#{folder_path}/*.{csv}"
 end 
 
 def get_file_path(file_name, folder_path)
@@ -22,11 +22,19 @@ def get_file_path(file_name, folder_path)
 end 
 
 def get_csv(file_name, folder_path)
+  result = ''
   file_path = get_file_path(file_name, folder_path)
-  book = Roo::Excel.new file_path, extension: :xls
-  sheet1 = book.sheet(0)
-  csv_str = sheet1.to_csv
-  CSV.parse(csv_str, headers: true)
+  if File.extname(file_name) == ".csv"
+    file_stream = File.open file_path
+    result = CSV.parse(file_stream.read, headers: true)
+    file_stream.close
+  else 
+    book = Roo::Excel.new file_path, extension: :xls
+    sheet1 = book.sheet(0)
+    csv_str = sheet1.to_csv
+    result = CSV.parse(csv_str, headers: true)
+  end 
+  result 
 end 
 
 def get_file_date(file_name, folder_path)
