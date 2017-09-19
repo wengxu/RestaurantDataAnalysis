@@ -12,5 +12,9 @@ print('hello')
 #print(available.packages())
 drv <- dbDriver("PostgreSQL")
 conn <- dbConnect(drv, dbname="restaurant", host="/tmp")
-rs <- dbSendQuery(conn, "select count(*) from call_history")
-typeof(fetch(rs,n=-1))
+#sql_str = "select count(*) from call_history"
+sql_str = paste(readLines("get_hour.sql"), collapse="\n")
+rs <- dbSendQuery(conn, sql_str)
+result_df = fetch(rs,n=-1)
+
+write.csv(result_df, 'cal_hour_q.csv')
