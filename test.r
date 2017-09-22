@@ -16,5 +16,12 @@ conn <- dbConnect(drv, dbname="restaurant", host="/tmp")
 sql_str = paste(readLines("get_hour.sql"), collapse="\n")
 rs <- dbSendQuery(conn, sql_str)
 result_df = fetch(rs,n=-1)
+hour_q_vector = result_df[['hour_q']]
+count_vector = result_df[['count']]
 
-write.csv(result_df, 'cal_hour_q.csv')
+x_pos <- barplot(count_vector,names.arg = hour_q_vector, 
+  xlab='Time', ylab='Call Count',
+  cex.names= 0.5, las=2, width =0.85)
+text(x=x_pos,y=(count_vector+7),label=hour_q_vector,srt=90,cex=0.6)
+#write.csv(result_df, 'cal_hour_q.csv')
+
