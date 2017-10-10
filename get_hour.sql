@@ -40,6 +40,8 @@ from (
       date_part('dow', call_time) as dow, 
       call_time  from call_history
       where call_time > '2016-07-01'
+        -- The day of the week (0 - 6; Sunday is 0)
+        and date_part('dow', call_time) = 1
   ) as call_time_tbl
 
 ) as call_time_tbl2
