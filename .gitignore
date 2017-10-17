@@ -1,3 +1,5 @@
 # ignore generated graph 
 Rplots.pdf
 results/
+*.pdf
+a.r
