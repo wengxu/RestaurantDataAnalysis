@@ -41,7 +41,7 @@ from (
       call_time  from call_history
       where call_time > '2016-07-01'
         -- The day of the week (0 - 6; Sunday is 0)
-        and date_part('dow', call_time) = 1
+        and date_part('dow', call_time) in ( {{dow}} ) 
   ) as call_time_tbl
 
 ) as call_time_tbl2
