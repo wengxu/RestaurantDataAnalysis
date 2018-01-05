@@ -20,6 +20,9 @@ call_history = Call_history.new({
   "Length"=>"0:25"
 })
 
+# insert sql 
+#insert into call_history (call_type, name, num, call_time, length) select 'Received', 'WIRELESS CALLER', '999-999-9999', '2000-01-01 02:49:01 PM CST', '0:25' 
+
 
 def insert_call_history(conn, call_history) 
   call_type = call_history.call_type
